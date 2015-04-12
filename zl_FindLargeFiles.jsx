@@ -4,7 +4,7 @@
     zack@zacklovatt.com
 
     Name: zl_FindLargeFiles
-    Version: 1.0
+    Version: 1.1
  
     Description:
         This script finds large files/items in your project, by either file size or
@@ -37,13 +37,18 @@
     ******************************/
     function zl_FindLargeFiles(thisObj, sizeInput, useRes, isMB){
         var projItems = app.project.items;
-        
-        if (useRes)
-            var moveArray = zl_FindLargeFiles_buildResArray(projItems, sizeInput);
-        else
-            var moveArray = zl_FindLargeFiles_buildFSizeArray(projItems, sizeInput, isMB);
+        var moveArray = new Array;
+        var folderString = "";
+
+        if (useRes){
+            moveArray = zl_FindLargeFiles_buildResArray(projItems, sizeInput);
+            folderString = sizeInput[0] + "x" + sizeInput[1];
+        } else {
+            moveArray = zl_FindLargeFiles_buildFSizeArray(projItems, sizeInput, isMB);
+            folderString = sizeInput + " " + (isMB == true ? "MB" : "GB");
+        }
             
-        zl_FindLargeFiles_moveItems(moveArray);
+        zl_FindLargeFiles_moveItems(moveArray, folderString);
         
     } // end function FindLargeFiles
 
@@ -135,10 +140,10 @@
         Returns:
         Nothing.
      ******************************/
-    function zl_FindLargeFiles_moveItems(moveArray){
+    function zl_FindLargeFiles_moveItems(moveArray, folderString){
         
         if (!(moveArray.length == 0)){
-            var newFolder = app.project.items.addFolder("! Large Items")
+            var newFolder = app.project.items.addFolder("! Large Items > " + folderString)
 
             for (var i = 0; i < moveArray.length; i++){
                 moveArray[i].parentFolder = newFolder;
@@ -166,6 +171,7 @@
         var win = (thisObj instanceof Panel) ? thisObj : new Window('palette', 'Find Large Files',undefined); 
       
         var tPanel = win.add ("tabbedpanel");
+        tPanel.alignment="fill";
         
         function checkStr (str) {
             try {
