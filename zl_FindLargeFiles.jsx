@@ -4,7 +4,7 @@
     zack@zacklovatt.com
 
     Name: zl_FindLargeFiles
-    Version: 0.2
+    Version: 1.0
  
     Description:
         This script finds large files/items in your project, by either file size or
