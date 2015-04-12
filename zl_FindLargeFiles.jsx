@@ -4,15 +4,11 @@
     zack@zacklovatt.com
 
     Name: zl_FindLargeFiles
-    Version: 0.1
+    Version: 0.2
  
     Description:
-        This script sets the label colour for all selected items as specified.
-        If a folder is in the selection, the script will recursively search through
-        and find all items within that folder.
-        
-        Useful for when importing existing projects/AEPs, to set the label colour
-        in one fell swoop for all imported objects.
+        This script finds large files/items in your project, by either file size or
+        resolution, and moves them to a new folder.
         
         Originally requested by Ronald Molina (ronalith.com)
 
@@ -24,21 +20,21 @@
 
     var zl_FLF__scriptName = "zl_FindLargeFiles";
     
-	/****************************** 
+    /****************************** 
         zl_FindLargeFiles()
-	
+    
         Description:
         This function contains the main logic for this script.
-	 
+     
         Parameters:
         thisObj - "this" object.
         sizeInput - array of size input
         useRes - use resolution (vs file size)
         isMB - use mb (vs gb)
-	 
+     
         Returns:
         Nothing.
-	******************************/
+    ******************************/
     function zl_FindLargeFiles(thisObj, sizeInput, useRes, isMB){
         var projItems = app.project.items;
         
